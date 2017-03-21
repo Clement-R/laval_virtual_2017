@@ -177,6 +177,7 @@ namespace VRTK
                 transform.position = transform.position + ((activationDir.normalized * activationDistance) * 0.5f);
                 buttonJoint = gameObject.AddComponent<ConfigurableJoint>();
 
+
                 if (recreate)
                 {
                     buttonJoint.connectedBody = oldBody;
