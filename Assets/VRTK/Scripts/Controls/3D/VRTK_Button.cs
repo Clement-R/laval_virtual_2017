@@ -68,6 +68,10 @@ namespace VRTK
         [Obsolete("`VRTK_Control.events` has been replaced with delegate events. `VRTK_Button_UnityEvents` is now required to access Unity events. This method will be removed in a future version of VRTK.")]
         public ButtonEvents events;
 
+        [HideInInspector]
+        public bool active = false;
+        public bool done = false;
+
         /// <summary>
         /// Emitted when the 3D Button has reached it's activation distance.
         /// </summary>
@@ -269,6 +273,8 @@ namespace VRTK
             if (ReachedActivationDistance())
             {
                 GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                done = true;
+                GameObject.Find("GameManager").GetComponent<PuzzleManager>().UpdateButton(this);
 
                 if (oldState == 0)
                 {
