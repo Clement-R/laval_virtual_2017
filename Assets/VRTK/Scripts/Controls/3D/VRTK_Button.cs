@@ -268,6 +268,8 @@ namespace VRTK
             float oldState = value;
             if (ReachedActivationDistance())
             {
+                GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
                 if (oldState == 0)
                 {
                     value = 1;

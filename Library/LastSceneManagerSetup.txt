@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/LavalVirtual_2017/Scenes/main.unity
-  isLoaded: 1
-  isActive: 1
