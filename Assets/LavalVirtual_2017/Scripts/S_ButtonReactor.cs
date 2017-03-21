@@ -22,9 +22,11 @@
         private void handlePush(object sender, Control3DEventArgs e)
         {
             Debug.Log("Pushed");
-
-            m_ButtonDown.material.color = Color.yellow;
-            m_ButtonDown.GetComponent<VRTK_Button>().enabled = true;
+            if(m_ButtonDown)
+            {
+                m_ButtonDown.material.color = Color.yellow;
+                m_ButtonDown.GetComponent<VRTK_Button>().enabled = true;
+            }
             GetComponent<VRTK_Button>().enabled = false;
             GetComponent<MeshRenderer>().material.color = Color.green;
         }
