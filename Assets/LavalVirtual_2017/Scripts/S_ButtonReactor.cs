@@ -22,9 +22,6 @@
         private void handlePush(object sender, Control3DEventArgs e)
         {
             Debug.Log("Pushed");
-
-            m_ButtonDown.material.color = Color.yellow;
-            GetComponent<MeshRenderer>().material.color = Color.green;
         }
     }
 }
