@@ -25,6 +25,8 @@
 
             m_ButtonDown.material.color = Color.yellow;
             m_ButtonDown.GetComponent<VRTK_Button>().enabled = true;
+            GetComponent<VRTK_Button>().enabled = false;
+            GetComponent<MeshRenderer>().material.color = Color.green;
         }
     }
 }
