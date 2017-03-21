@@ -269,7 +269,7 @@ namespace VRTK
         {
             // trigger events
             float oldState = value;
-            if (ReachedActivationDistance())
+            if (ReachedActivationDistance() && !done)
             {
                 done = true;
                 GameObject.Find("GameManager").GetComponent<PuzzleManager>().UpdateButton(this);
