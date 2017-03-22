@@ -5,7 +5,7 @@ using VRTK;
 
 public class PuzzleManager : MonoBehaviour {
     public List<VRTK_Button> buttons = new List<VRTK_Button>();
-	
+
 	void Update () {
 		if(buttons.TrueForAll(e => e.done == true)) {
             Debug.Log("Job's done");
@@ -33,7 +33,7 @@ public class PuzzleManager : MonoBehaviour {
                 if (id != buttons.Count - 1) {
                     buttons[id + 1].active = true;
                     buttons[id + 1].GetComponent<VRTK_InteractableObject>().enabled = true;
-                    buttons[id + 1].GetComponent<MeshRenderer>().material.color = Color.yellow;
+                    buttons[id + 1].GetComponent<MeshRenderer>().material.color = buttons[id + 1].GetComponent<ActiveColor>().m_activeColor;
                 }
             } else if (buttons[id - 1].doneOnNext && !buttons[id - 1].ReachedActivationDistance()) {
                 buttons[id].done = false;
@@ -47,7 +47,7 @@ public class PuzzleManager : MonoBehaviour {
                 {
                     buttons[id + 1].active = true;
                     buttons[id + 1].GetComponent<VRTK_InteractableObject>().enabled = true;
-                    buttons[id + 1].GetComponent<MeshRenderer>().material.color = Color.yellow;
+                    buttons[id + 1].GetComponent<MeshRenderer>().material.color = buttons[id + 1].GetComponent<ActiveColor>().m_activeColor;
                 }
 
             }
@@ -61,7 +61,7 @@ public class PuzzleManager : MonoBehaviour {
             if (id != buttons.Count - 1) {
                 buttons[id + 1].active = true;
                 buttons[id + 1].GetComponent<VRTK_InteractableObject>().enabled = true;
-                buttons[id + 1].GetComponent<MeshRenderer>().material.color = Color.yellow;
+                buttons[id + 1].GetComponent<MeshRenderer>().material.color = buttons[id + 1].GetComponent<ActiveColor>().m_activeColor;
             }
         }
     }
