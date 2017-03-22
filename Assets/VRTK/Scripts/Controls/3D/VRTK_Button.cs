@@ -4,6 +4,7 @@ namespace VRTK
     using UnityEngine;
     using UnityEngine.Events;
     using System;
+    using System.Collections;
 
     /// <summary>
     /// Event Payload
@@ -72,6 +73,11 @@ namespace VRTK
         public bool doneOnNext = false;
         public bool done = false;
 
+        public GameObject movingCube = null;
+        private Vector3 movingCubeStartPosition;
+        public Vector3 movingCubeFinalPosition = new Vector3();
+        public GameObject circleActivated = null;
+
         /// <summary>
         /// Emitted when the 3D Button has reached it's activation distance.
         /// </summary>
@@ -137,6 +143,10 @@ namespace VRTK
                     connectedToRigidbody = connectedTo.AddComponent<Rigidbody>();
                 }
                 connectedToRigidbody.useGravity = false;
+            }
+
+            if(movingCube != null) {
+                movingCubeStartPosition = movingCube.transform.localPosition;
             }
         }
 
@@ -289,6 +299,10 @@ namespace VRTK
 
                     OnPushed(SetControlEvent());
                 }
+
+                if (movingCube != null) {
+                    StartCoroutine(MoveToPosition(2.0f));
+                }
             }
             else
             {
@@ -299,6 +313,16 @@ namespace VRTK
                 GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             } else if(active) {
                 GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            }
+        }
+
+        public IEnumerator MoveToPosition(float timeToMove) {
+            Vector3 currentPos = transform.position;
+            float t = 0f;
+            while (t < 1) {
+                t += Time.deltaTime / timeToMove;
+                movingCube.transform.localPosition = Vector3.Lerp(movingCubeStartPosition, movingCubeFinalPosition, t);
+                yield return null;
             }
         }
 

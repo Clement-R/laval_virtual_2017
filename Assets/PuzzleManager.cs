@@ -19,7 +19,6 @@ public class PuzzleManager : MonoBehaviour {
         if (id - 1 > 0) {
             // If the previous one needed the next one to be completed
             if (buttons[id - 1].doneOnNext && buttons[id - 1].ReachedActivationDistance()) {
-                Debug.Log(buttons[id - 1].ReachedActivationDistance());
 
                 buttons[id - 1].active = false;
                 buttons[id - 1].done = true;
@@ -30,19 +29,59 @@ public class PuzzleManager : MonoBehaviour {
                 buttons[id].GetComponent<VRTK_InteractableObject>().enabled = false;
                 buttons[id].GetComponent<MeshRenderer>().material.color = Color.green;
 
+                if (buttons[id].circleActivated != null) {
+                    startAnimRotation startAnim = buttons[id].circleActivated.GetComponent<startAnimRotation>();
+                    if (startAnim.firstCircle) {
+                        startAnim.ActivateFirstCircle = true;
+                    }
+                    else if (startAnim.secondCircle) {
+                        startAnim.ActivateSecondCircle = true;
+                    }
+                    else if (startAnim.thirdCircle) {
+                        Debug.Log("MDR");
+                        startAnim.ActivateThirdCircle = true;
+                    }
+                }
+
                 if (id != buttons.Count - 1) {
                     buttons[id + 1].active = true;
                     buttons[id + 1].GetComponent<VRTK_InteractableObject>().enabled = true;
                     buttons[id + 1].GetComponent<MeshRenderer>().material.color = Color.yellow;
                 }
             } else {
+                // If we've done the second one but we've failed the previous that's a doneOnNext behavior,
+                // we reset the previous
                 buttons[id].done = false;
+
+                buttons[id].active = false;
+                buttons[id].GetComponent<VRTK_InteractableObject>().enabled = false;
+                buttons[id].GetComponent<MeshRenderer>().material.color = Color.green;
+
+                if (id != buttons.Count - 1) {
+                    buttons[id + 1].active = true;
+                    buttons[id + 1].GetComponent<VRTK_InteractableObject>().enabled = true;
+                    buttons[id + 1].GetComponent<MeshRenderer>().material.color = Color.yellow;
+                }
             }
         } else {
             if (!buttons[id].doneOnNext) {
                 buttons[id].active = false;
                 buttons[id].GetComponent<VRTK_InteractableObject>().enabled = false;
                 buttons[id].GetComponent<MeshRenderer>().material.color = Color.green;
+
+                if (buttons[id].circleActivated != null) {
+                    startAnimRotation startAnim = buttons[id].circleActivated.GetComponent<startAnimRotation>();
+                    if (startAnim.firstCircle) {
+                        startAnim.ActivateFirstCircle = true;
+                    }
+                    else if (startAnim.secondCircle) {
+                        startAnim.ActivateSecondCircle = true;
+                    }
+                    else if (startAnim.thirdCircle) {
+                        Debug.Log("MDR");
+                        startAnim.ActivateThirdCircle = true;
+                    }
+                }
             }
 
             if (id != buttons.Count - 1) {
