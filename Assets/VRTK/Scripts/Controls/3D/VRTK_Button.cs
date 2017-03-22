@@ -69,6 +69,7 @@ namespace VRTK
         public ButtonEvents events;
 
         public bool active = false;
+        public bool doneOnNext = false;
         public bool done = false;
 
         /// <summary>
@@ -271,7 +272,10 @@ namespace VRTK
             float oldState = value;
             if (ReachedActivationDistance())
             {
-                done = true;
+                if(!doneOnNext) {
+                    done = true;
+                }
+
                 GameObject.Find("GameManager").GetComponent<PuzzleManager>().UpdateButton(this);
 
                 if (oldState == 0)
@@ -472,7 +476,7 @@ namespace VRTK
             return (buttonDirection * (extents + activationDistance));
         }
 
-        private bool ReachedActivationDistance()
+        public bool ReachedActivationDistance()
         {
             return (Vector3.Distance(transform.position, restingPosition) >= activationDistance);
         }
