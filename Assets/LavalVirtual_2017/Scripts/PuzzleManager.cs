@@ -120,26 +120,36 @@ public class PuzzleManager : MonoBehaviour
             startAnimRotation startAnim = button.circleActivated.GetComponent<startAnimRotation>();
             if (startAnim.firstCircle)
             {
-                StartCoroutine(ActivateCircleCoroutine(3f, startAnim.ActivateFirstCircle));
+                StartCoroutine(ActivateCircleCoroutine(3f, startAnim, 0));
                 button.circleActivated.GetComponent<AudioSource>().PlayDelayed(3f);
             }
             else if (startAnim.secondCircle)
             {
-                StartCoroutine(ActivateCircleCoroutine(3f, startAnim.ActivateSecondCircle));
+                StartCoroutine(ActivateCircleCoroutine(3f, startAnim, 1));
                 button.circleActivated.GetComponent<AudioSource>().PlayDelayed(3f);
             }
             else if (startAnim.thirdCircle)
             {
-                StartCoroutine(ActivateCircleCoroutine(3f, startAnim.ActivateThirdCircle));
+                StartCoroutine(ActivateCircleCoroutine(3f, startAnim, 2));
                 button.circleActivated.GetComponent<AudioSource>().PlayDelayed(3f);
             }
         }
     }
 
-    public IEnumerator ActivateCircleCoroutine(float timeToWait, bool circle)
+    public IEnumerator ActivateCircleCoroutine(float timeToWait, startAnimRotation startanim, int id)
     {
         yield return new WaitForSeconds(timeToWait);
-        circle = true;
-        yield return null;
+        switch (id)
+        {
+            case 0:
+                startanim.ActivateFirstCircle = true;
+                break;
+            case 1:
+                startanim.ActivateSecondCircle = true;
+                break;
+            case 2:
+                startanim.ActivateThirdCircle = true;
+                break;
+        }
     }
 }

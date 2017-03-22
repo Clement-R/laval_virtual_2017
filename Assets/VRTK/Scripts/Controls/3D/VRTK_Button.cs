@@ -301,7 +301,12 @@ namespace VRTK
                 }
 
                 if (movingCube != null) {
-                    StartCoroutine(MoveToPosition(2.0f, 1.5f));
+                    if(movingCubeFinalPosition != Vector3.zero) {
+                        StartCoroutine(MoveToPosition(2.0f, 1.5f));
+                    } else {
+                        StartCoroutine(MoveToCenter(2.0f, 1.5f));
+                    }
+
                 }
             }
             else
@@ -327,11 +332,21 @@ namespace VRTK
         public IEnumerator MoveToPosition(float timeToMove, float timeToWait) {
             yield return new WaitForSeconds(timeToWait);
             movingCube.GetComponent<AudioSource>().PlayDelayed(1.25f);
-            Vector3 currentPos = transform.position;
             float t = 0f;
             while (t < 1) {
                 t += Time.deltaTime / timeToMove;
                 movingCube.transform.localPosition = Vector3.Lerp(movingCubeStartPosition, movingCubeFinalPosition, t);
+                yield return null;
+            }
+        }
+
+        public IEnumerator MoveToCenter(float timeToMove, float timeToWait) {
+            yield return new WaitForSeconds(timeToWait);
+            //movingCube.GetComponent<AudioSource>().PlayDelayed(1.25f);
+            float t = 0f;
+            while (t < 1) {
+                t += Time.deltaTime / timeToMove;
+                movingCube.transform.localPosition = Vector3.Lerp(movingCubeStartPosition, Vector3.zero, t);
                 yield return null;
             }
         }
