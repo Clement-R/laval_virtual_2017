@@ -287,7 +287,7 @@ namespace VRTK
                     done = true;
                 }
 
-                GameObject.Find("GameManager").GetComponent<PuzzleManager>().UpdateButton(this);
+                GameObject.Find("_GameManager").GetComponent<PuzzleManager>().UpdateButton(this);
 
                 if (oldState == 0)
                 {
