@@ -14,7 +14,7 @@ public class PuzzleManager : MonoBehaviour {
 
     public void UpdateButton(VRTK_Button button) {
         int id = buttons.FindIndex(e => e.GetInstanceID() == button.GetInstanceID());
-
+        
         // Don't try to access element before 0
         if (id - 1 > 0) {
             // If the previous one needed the next one to be completed

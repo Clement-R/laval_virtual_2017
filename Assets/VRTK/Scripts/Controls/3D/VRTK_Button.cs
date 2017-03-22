@@ -270,7 +270,7 @@ namespace VRTK
         {
             // trigger events
             float oldState = value;
-            if (ReachedActivationDistance())
+            if (ReachedActivationDistance() && !done)
             {
                 if(!doneOnNext) {
                     done = true;
