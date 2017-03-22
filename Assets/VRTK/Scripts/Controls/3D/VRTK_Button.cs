@@ -282,7 +282,6 @@ namespace VRTK
             float oldState = value;
             if (ReachedActivationDistance() && !done)
             {
-                Debug.Log("coucou");
                 if(!doneOnNext) {
                     done = true;
                 }
@@ -314,6 +313,14 @@ namespace VRTK
                 GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             } else if(active) {
                 GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            }
+
+            if(doneOnNext) {
+                if (ReachedActivationDistance()) {
+                    GetComponent<MeshRenderer>().material.color = Color.green;
+                } else if(active) {
+                    GetComponent<MeshRenderer>().material.color = GetComponent<ActiveColor>().m_activeColor;
+                }
             }
         }
 
