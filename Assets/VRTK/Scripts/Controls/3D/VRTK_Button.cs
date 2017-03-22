@@ -301,7 +301,7 @@ namespace VRTK
                 }
 
                 if (movingCube != null) {
-                    StartCoroutine(MoveToPosition(2.0f));
+                    StartCoroutine(MoveToPosition(2.0f, 1.5f));
                 }
             }
             else
@@ -324,7 +324,9 @@ namespace VRTK
             }
         }
 
-        public IEnumerator MoveToPosition(float timeToMove) {
+        public IEnumerator MoveToPosition(float timeToMove, float timeToWait) {
+            yield return new WaitForSeconds(timeToWait);
+            movingCube.GetComponent<AudioSource>().PlayDelayed(1.25f);
             Vector3 currentPos = transform.position;
             float t = 0f;
             while (t < 1) {
