@@ -272,6 +272,7 @@ namespace VRTK
             float oldState = value;
             if (ReachedActivationDistance() && !done)
             {
+                Debug.Log("coucou");
                 if(!doneOnNext) {
                     done = true;
                 }

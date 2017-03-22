@@ -35,8 +35,21 @@ public class PuzzleManager : MonoBehaviour {
                     buttons[id + 1].GetComponent<VRTK_InteractableObject>().enabled = true;
                     buttons[id + 1].GetComponent<MeshRenderer>().material.color = Color.yellow;
                 }
-            } else {
+            } else if (buttons[id - 1].doneOnNext && !buttons[id - 1].ReachedActivationDistance()) {
                 buttons[id].done = false;
+            }
+            else {
+                buttons[id].active = false;
+                buttons[id].GetComponent<VRTK_InteractableObject>().enabled = false;
+                buttons[id].GetComponent<MeshRenderer>().material.color = Color.green;
+
+                if (id != buttons.Count - 1)
+                {
+                    buttons[id + 1].active = true;
+                    buttons[id + 1].GetComponent<VRTK_InteractableObject>().enabled = true;
+                    buttons[id + 1].GetComponent<MeshRenderer>().material.color = Color.yellow;
+                }
+
             }
         } else {
             if (!buttons[id].doneOnNext) {
